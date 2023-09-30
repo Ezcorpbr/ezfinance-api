@@ -1,0 +1,36 @@
+version: "3"
+services:
+  postgres-auth:
+    environment:
+      - POSTGRES_USER=api
+      - POSTGRES_PASSWORD=development_pass
+      - POSTGRES_MULTIPLE_DATABASES="auth-api","auth-api-testing"
+    volumes:
+      - ./docker-utils:/docker-entrypoint-initdb.d
+      - auth_api_data:/data/postgres
+    ports:
+      - 5431:5432
+  postgres-home-manager:
+    environment:
+      - POSTGRES_USER=api
+      - POSTGRES_PASSWORD=development_pass
+      - POSTGRES_MULTIPLE_DATABASES="home-manager-api","home-manager-api-testing"
+    volumes:
+      - ./docker-utils:/docker-entrypoint-initdb.d
+      - home_manager_api_data:/data/postgres
+    ports:
+      - 5433:5432
+  postgres-finance-manager:
+    environment:
+      - POSTGRES_USER=api
+      - POSTGRES_PASSWORD=development_pass
+      - POSTGRES_MULTIPLE_DATABASES="finance-manager-api","finance-manager-api-testing"
+    volumes:
+      - ./docker-utils:/docker-entrypoint-initdb.d
+      - finance_manager_api_data:/data/postgres
+    ports:
+      - 5434:5432
+volumes:
+  auth_api_data: {}
+  home_manager_api_data: {}
+  finance_manager_api_data: {}
